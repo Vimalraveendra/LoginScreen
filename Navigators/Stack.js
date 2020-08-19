@@ -17,13 +17,18 @@ const StackNavigator = () => {
         options={{
           title: 'Overview',
           headerTransparent: true,
+          headerTintColor: '#fff',
         }}
       />
-      <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={{headerTransparent: true, headerTintColor: '#fff'}}
+      />
       <Stack.Screen
         name="SignUp"
         component={SignUpScreen}
-        options={{title: 'Register'}}
+        options={{title: 'Register', headerTintColor: '#333'}}
       />
     </Stack.Navigator>
   );
