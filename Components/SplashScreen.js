@@ -2,13 +2,13 @@ import React from 'react';
 
 import {View, Text, StyleSheet, Button} from 'react-native';
 
-const SignInScreen = ({navigation}) => {
+const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>SignIn Screen</Text>
+      <Text style={styles.text}>Splash Screen</Text>
       <Button
-        title="Go to SignUp Screen"
-        onPress={() => navigation.navigate('SignUp')}
+        title="Go to SignIn Screen"
+        onPress={() => navigation.navigate('SignIn')}
       />
     </View>
   );
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignInScreen;
+export default SplashScreen;
