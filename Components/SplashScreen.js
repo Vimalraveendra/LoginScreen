@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
@@ -19,7 +19,7 @@ const SplashScreen = ({navigation}) => {
           resizeMode="cover"
         />
       </View>
-      <Animatable.View style={styles.footer} animation="fadeInUpBig">
+      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <Text style={styles.title}>Get connected with each other</Text>
         <Text style={styles.text}>Sign in with account</Text>
         <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
