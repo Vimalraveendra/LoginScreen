@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {View, Text, StyleSheet} from 'react-native';
-
 import {createStackNavigator} from '@react-navigation/stack';
 
 import SplashScreen from '../Components/SplashScreen';
@@ -14,9 +12,12 @@ const StackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Splash"
         component={SplashScreen}
-        options={{title: 'Overview'}}
+        options={{
+          title: 'Overview',
+          headerTransparent: true,
+        }}
       />
       <Stack.Screen name="SignIn" component={SignInScreen} />
       <Stack.Screen
@@ -27,17 +28,5 @@ const StackNavigator = () => {
     </Stack.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-});
 
 export default StackNavigator;
