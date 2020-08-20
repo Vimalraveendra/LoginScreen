@@ -97,7 +97,7 @@ const SignInScreen = ({navigation}) => {
         </View>
         <View style={styles.button}>
           <LinearGradient
-            colors={['#4c669f', '#3b5998', '#192f6a']}
+            colors={['#4c669f', '#009387', '#192f6a']}
             style={styles.signIn}>
             <Text style={styles.signInText}>SignIn</Text>
           </LinearGradient>
@@ -115,7 +115,7 @@ const SignInScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: '#3b5998',
   },
   header: {
     flex: 1,
