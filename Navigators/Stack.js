@@ -30,7 +30,7 @@ const StackNavigator = () => {
         component={SignUpScreen}
         options={{
           title: 'Register',
-          headerTintColor: '#333',
+          headerTintColor: '#fff',
           headerTransparent: true,
         }}
       />
