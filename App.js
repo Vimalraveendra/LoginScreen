@@ -8,6 +8,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import StackNavigator from './Navigators/Stack';
 import {AuthContext} from './Components/Context';
 
+import DrawerNavigator from './Drawer/Drawer';
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userToken, setUserToken] = useState(null);
@@ -15,15 +17,15 @@ const App = () => {
   const authContext = React.useMemo(() => ({
     signIn: () => {
       setUserToken('fgh');
-      setIsLoading('false');
+      setIsLoading(false);
     },
     signOut: () => {
       setUserToken(null);
-      setIsLoading('false');
+      setIsLoading(false);
     },
     signUp: () => {
       setUserToken('fgh');
-      setIsLoading('false');
+      setIsLoading(false);
     },
   }));
 
@@ -43,7 +45,7 @@ const App = () => {
   return (
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <StackNavigator />
+        {userToken !== null ? <DrawerNavigator /> : <StackNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
   );

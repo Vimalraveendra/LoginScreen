@@ -8,7 +8,7 @@ import SignUpScreen from '../Components/SignUpScreen';
 
 const Stack = createStackNavigator();
 
-const StackNavigator = () => {
+const StackNavigator = ({userToken}) => {
   return (
     <Stack.Navigator>
       <Stack.Screen

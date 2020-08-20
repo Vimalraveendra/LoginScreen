@@ -14,6 +14,8 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 
+import {AuthContext} from './Context';
+
 FontIcon.loadFont();
 FeatherIcon.loadFont();
 
@@ -24,6 +26,8 @@ const SignInScreen = ({navigation}) => {
     inputText: false,
     secureTextEntry: true,
   });
+  const {signIn} = React.useContext(AuthContext);
+
   const setInputText = (text) => {
     if (text.length !== 0) {
       setState({
@@ -96,11 +100,13 @@ const SignInScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.button}>
-          <LinearGradient
-            colors={['#4c669f', '#009387', '#192f6a']}
-            style={styles.signIn}>
-            <Text style={styles.signInText}>SignIn</Text>
-          </LinearGradient>
+          <TouchableOpacity onPress={() => signIn()}>
+            <LinearGradient
+              colors={['#4c669f', '#009387', '#192f6a']}
+              style={styles.signIn}>
+              <Text style={styles.signInText}>SignIn</Text>
+            </LinearGradient>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('SignUp')}
             style={styles.signUp}>
