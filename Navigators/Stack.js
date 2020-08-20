@@ -28,7 +28,11 @@ const StackNavigator = () => {
       <Stack.Screen
         name="SignUp"
         component={SignUpScreen}
-        options={{title: 'Register', headerTintColor: '#333'}}
+        options={{
+          title: 'Register',
+          headerTintColor: '#333',
+          headerTransparent: true,
+        }}
       />
     </Stack.Navigator>
   );
