@@ -5,6 +5,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  StatusBar,
   TouchableOpacity,
 } from 'react-native';
 
@@ -56,6 +57,7 @@ const SignInScreen = ({navigation}) => {
   };
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
       <View style={styles.header}>
         <Text style={styles.headerText}>Welcome</Text>
       </View>
