@@ -8,7 +8,8 @@ import {
   StatusBar,
   TouchableOpacity,
 } from 'react-native';
-
+// onEndEditing (callback that is called when text input ends)
+// onBlur (callback that is called when the text input is blurred)
 import FontIcon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import * as Animatable from 'react-native-animatable';
@@ -25,30 +26,43 @@ const SignInScreen = ({navigation}) => {
     password: '',
     inputText: false,
     secureTextEntry: true,
+    isValidUser: true,
+    isValidPassword: true,
   });
   const {signIn} = React.useContext(AuthContext);
 
   const setInputText = (text) => {
-    if (text.length !== 0) {
+    if (text.length > 4) {
       setState({
         ...state,
         userName: text,
         inputText: true,
+        isValidUser: true,
       });
     } else {
       setState({
         ...state,
         userName: text,
         inputText: false,
+        isValidUser: false,
       });
     }
   };
 
   const setPassword = (text) => {
-    setState({
-      ...state,
-      password: text,
-    });
+    if (text.trim().length > 8) {
+      setState({
+        ...state,
+        password: text,
+        isValidPassword: true,
+      });
+    } else {
+      setState({
+        ...state,
+        password: text,
+        isValidPassword: false,
+      });
+    }
   };
 
   const toggleSecureText = () => {
@@ -59,6 +73,21 @@ const SignInScreen = ({navigation}) => {
       });
     }
   };
+  // const handleValidUser = (e) => {
+  //   let val = e.nativeEvent.text;
+  //   if (val.trim().length > 4) {
+  //     setState({
+  //       ...state,
+  //       isValidUser: true,
+  //     });
+  //   } else {
+  //     setState({
+  //       ...state,
+  //       isValidUser: false,
+  //     });
+  //   }
+  // onEndEditing={(e) => handleValidUser(e)}
+  // };
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#6a51ae" />
@@ -80,6 +109,13 @@ const SignInScreen = ({navigation}) => {
             </Animatable.View>
           ) : null}
         </View>
+        {state.isValidUser ? null : (
+          <Animatable.View style={styles.error}>
+            <Text style={styles.errorText}>
+              User name must be more than 4 characters
+            </Text>
+          </Animatable.View>
+        )}
         <View style={styles.password}>
           <Text style={styles.footerText}>Password</Text>
           <View style={styles.emailFonts}>
@@ -98,6 +134,13 @@ const SignInScreen = ({navigation}) => {
               )}
             </TouchableOpacity>
           </View>
+          {state.isValidPassword ? null : (
+            <Animatable.View style={styles.error}>
+              <Text style={styles.errorText}>
+                Password must be more than 8 characters
+              </Text>
+            </Animatable.View>
+          )}
         </View>
         <View style={styles.button}>
           <TouchableOpacity
@@ -160,6 +203,12 @@ const styles = StyleSheet.create({
   },
   password: {
     marginTop: 30,
+  },
+  error: {
+    marginTop: 5,
+  },
+  errorText: {
+    color: 'red',
   },
   button: {
     marginTop: 50,
