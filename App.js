@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {View, ActivityIndicator, StyleSheet} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -10,28 +10,103 @@ import {AuthContext} from './Components/Context';
 
 import DrawerNavigator from './Drawer/Drawer';
 
-const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState(null);
+import AsyncStorage from '@react-native-community/async-storage';
 
-  const authContext = React.useMemo(() => ({
-    signIn: () => {
-      setUserToken('fgh');
-      setIsLoading(false);
-    },
-    signOut: () => {
-      setUserToken(null);
-      setIsLoading(false);
-    },
-    signUp: () => {
-      setUserToken('fgh');
-      setIsLoading(false);
-    },
-  }));
+// import {loginReducer, initialState} from './Reducer/Reducer';
+
+const App = () => {
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [userToken, setUserToken] = useState(null);
+  const initialState = {
+    userName: null,
+    userToken: null,
+    iSLoading: true,
+  };
+
+  const loginReducer = (state, action) => {
+    switch (action.type) {
+      case 'RETRIEVE_TOKEN':
+        return {
+          ...state,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN':
+        return {
+          ...state,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT':
+        return {
+          ...state,
+          userName: null,
+          userToken: null,
+          isLoading: false,
+        };
+      case 'REGISTER':
+        return {
+          ...state,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  };
+
+  const [state, dispatch] = useReducer(loginReducer, initialState);
+  const {userToken, isLoading} = state;
+  console.log('state', state);
+
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async (userName, password) => {
+        // setUserToken('fgh');
+        // setIsLoading(false);
+        let userToken;
+        userToken = null;
+        if (userName === 'user' && password === 'pass') {
+          try {
+            userToken = 'abcd';
+            await AsyncStorage.setItem('userToken', userToken);
+          } catch (e) {
+            console.log(e);
+          }
+        }
+
+        dispatch({type: 'LOGIN', id: userName, token: userToken});
+      },
+      signOut: async () => {
+        // setUserToken(null);
+        // setIsLoading(false);
+        try {
+          await AsyncStorage.removeItem('Token');
+        } catch (e) {
+          console.log(e);
+        }
+        dispatch({type: 'LOGOUT'});
+      },
+      signUp: () => {
+        setUserToken('fgh');
+        setIsLoading(false);
+      },
+    }),
+    [],
+  );
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
+    setTimeout(async () => {
+      // setIsLoading(false);
+      let userToken;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken', userToken);
+      } catch (e) {
+        console.log(e);
+      }
+
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
     }, 1000);
   }, []);
 
