@@ -79,8 +79,12 @@ const SignInScreen = ({navigation}) => {
     const foundUser = Users.filter((user) => {
       return userName === user.userName && password === user.password;
     });
+    if (userName.length == 0 || password.length === 0) {
+      Alert.alert('Wrong input', 'Username or password field cannot be empty');
+      return;
+    }
     if (foundUser.length === 0) {
-      Alert.alert('user not found', 'userName or password is incorrect');
+      Alert.alert('user not found', 'Username or password is incorrect');
       return;
     }
     signIn(foundUser);
