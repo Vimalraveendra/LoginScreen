@@ -7,6 +7,7 @@ import {
   TextInput,
   StatusBar,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 // onEndEditing (callback that is called when text input ends)
 // onBlur (callback that is called when the text input is blurred)
@@ -16,6 +17,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {AuthContext} from './Context';
+import Users from '../Users/Users';
 
 FontIcon.loadFont();
 FeatherIcon.loadFont();
@@ -72,6 +74,16 @@ const SignInScreen = ({navigation}) => {
         secureTextEntry: !state.secureTextEntry,
       });
     }
+  };
+  const handleLogin = (userName, password) => {
+    const foundUser = Users.filter((user) => {
+      return userName === user.userName && password === user.password;
+    });
+    if (foundUser.length === 0) {
+      Alert.alert('user not found', 'userName or password is incorrect');
+      return;
+    }
+    signIn(foundUser);
   };
   // const handleValidUser = (e) => {
   //   let val = e.nativeEvent.text;
@@ -144,7 +156,7 @@ const SignInScreen = ({navigation}) => {
         </View>
         <View style={styles.button}>
           <TouchableOpacity
-            onPress={() => signIn(state.userName, state.password)}>
+            onPress={() => handleLogin(state.userName, state.password)}>
             <LinearGradient
               colors={['#4c669f', '#009387', '#192f6a']}
               style={styles.signIn}>
