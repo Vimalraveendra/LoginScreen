@@ -12,8 +12,6 @@ import DrawerNavigator from './Drawer/Drawer';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-// import {loginReducer, initialState} from './Reducer/Reducer';
-
 const App = () => {
   // const [isLoading, setIsLoading] = useState(true);
   // const [userToken, setUserToken] = useState(null);
@@ -57,7 +55,6 @@ const App = () => {
 
   const [state, dispatch] = useReducer(loginReducer, initialState);
   const {userToken, isLoading} = state;
-  console.log('state', state);
 
   const authContext = React.useMemo(
     () => ({
