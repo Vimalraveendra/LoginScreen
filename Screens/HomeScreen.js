@@ -1,11 +1,15 @@
 import React from 'react';
 
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
+
+import {AuthContext} from '../Components/Context';
 
 const HomeScreen = () => {
+  const {signOut} = React.useContext(AuthContext);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Home Screen</Text>
+      <Button title="signOut" onPress={() => signOut()} />
     </View>
   );
 };

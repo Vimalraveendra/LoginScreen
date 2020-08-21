@@ -21,7 +21,7 @@ FeatherIcon.loadFont();
 
 const SignInScreen = ({navigation}) => {
   const [state, setState] = useState({
-    email: '',
+    userName: '',
     password: '',
     inputText: false,
     secureTextEntry: true,
@@ -32,13 +32,13 @@ const SignInScreen = ({navigation}) => {
     if (text.length !== 0) {
       setState({
         ...state,
-        email: text,
+        userName: text,
         inputText: true,
       });
     } else {
       setState({
         ...state,
-        email: text,
+        userName: text,
         inputText: false,
       });
     }
@@ -66,11 +66,11 @@ const SignInScreen = ({navigation}) => {
         <Text style={styles.headerText}>Welcome</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Text style={styles.footerText}>Email</Text>
+        <Text style={styles.footerText}>UserName</Text>
         <View style={styles.emailFonts}>
           <FontIcon name="user-o" size={20} color="#05375a" />
           <TextInput
-            placeholder="Enter your email"
+            placeholder="Enter your user name"
             style={styles.textInput}
             onChangeText={(text) => setInputText(text)}
           />
@@ -100,7 +100,8 @@ const SignInScreen = ({navigation}) => {
           </View>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => signIn()}>
+          <TouchableOpacity
+            onPress={() => signIn(state.userName, state.password)}>
             <LinearGradient
               colors={['#4c669f', '#009387', '#192f6a']}
               style={styles.signIn}>
